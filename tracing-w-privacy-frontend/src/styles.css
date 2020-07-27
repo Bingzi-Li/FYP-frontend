@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.Body-inner {
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.Body-outer {
+  background-color: #dfe9eb;
+}

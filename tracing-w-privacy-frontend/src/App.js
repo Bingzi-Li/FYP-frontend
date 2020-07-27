@@ -69,6 +69,7 @@ function App() {
 
   const [nodes, setNodes] = useState(mrtData);
   const [searchTerms, setSearchTerms] = useState(initialSearchTerms);
+  const [patientTrajectory, setPatientsTrajectory] = useState([]);
 
   /* <p>{nodes[0].station_name}</p>
       <p>{initialSearchTerms.startDate.toDateString()}</p>
@@ -90,7 +91,12 @@ function App() {
         <NavigationBar />
         <Switch>
           <Route exact path="/" render={() => <Home nodes={nodes} />} />
-          <Route path="/search" component={Search} />
+          <Route
+            path="/search"
+            render={() => (
+              <Search nodes={nodes} onSubmitTraj={setPatientsTrajectory} />
+            )}
+          />
           <Route component={NoMatch} />
         </Switch>
       </Router>
