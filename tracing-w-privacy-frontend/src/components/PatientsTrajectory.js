@@ -53,7 +53,7 @@ const PatientsTrajectory = (props) => {
 
   const handleSubmit = () => {
     if (validateData()) {
-      props.onSubmitTraj(trajData);
+      props.setPatientsTrajectory(trajData);
       setToggleView(true);
     }
   };
@@ -95,7 +95,7 @@ const PatientsTrajectory = (props) => {
     <Form>
       <h5>Patient's Trajectory</h5>
       <br />
-      <ul>{trajView}</ul>
+      {trajView}
       <Button variant="primary" onClick={handleSubmit}>
         Submit
       </Button>

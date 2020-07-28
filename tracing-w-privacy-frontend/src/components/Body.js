@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Map from "./Map";
 
-const Layout = (props) => {
+const Body = (props) => {
   return (
     <div className="Body-outer">
       <div className="Body-inner">
@@ -36,4 +36,4 @@ const Layout = (props) => {
   );
 };
 
-export default Layout;
+export default Body;

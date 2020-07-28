@@ -71,16 +71,38 @@ function App() {
   const [searchTerms, setSearchTerms] = useState(initialSearchTerms);
   const [patientTrajectory, setPatientsTrajectory] = useState([]);
 
-  /* <p>{nodes[0].station_name}</p>
-      <p>{initialSearchTerms.startDate.toDateString()}</p>
-      <p>{initialSearchTerms.endDate.toDateString()}</p>
-      <p>{initialSearchTerms.entryToDisplay}</p> */
+  // 0: the search terms UI
+  // 1: the loading UI
+  // 2: the result UI
+  const [searchViewOption, setSearchViewOption] = useState(0);
+
+  const [searchResult, setSearchResult] = useState([]);
 
   /* ---------------- functions  ---------------- */
 
   function extractNodes() {
     // get nodes from backend
   }
+
+  // for testing only
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  const handleSearch = async (parameters) => {
+    setSearchTerms(parameters);
+    // call backend to search
+    // before result returned by backend, set search view option to 1
+    setSearchViewOption(1);
+    await delay(5000); // for testing purpose
+    // dummy data
+    const result = [
+      { id: 0, name: "Jack Sparrow", contact: 12345678 },
+      { id: 1, name: "Harry Potter", contact: 12345668 },
+      { id: 2, name: "Arya Stark", contact: 12341248 },
+    ];
+    setSearchResult(result);
+    // after result returned by backend, set search view option to 2
+    setSearchViewOption(2);
+  };
 
   /* ---------------- body  ---------------- */
 
@@ -94,9 +116,16 @@ function App() {
           <Route
             path="/search"
             render={() => (
-              <Search nodes={nodes} onSubmitTraj={setPatientsTrajectory} />
+              <Search
+                nodes={nodes}
+                searchResult={searchResult}
+                searchViewOption={searchViewOption}
+                setPatientsTrajectory={setPatientsTrajectory}
+                onSearch={handleSearch}
+              />
             )}
           />
+          <Route path="/login" render={() => <div>login page</div>}></Route>
           <Route component={NoMatch} />
         </Switch>
       </Router>
