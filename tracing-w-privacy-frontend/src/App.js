@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "./Home";
 import Search from "./Search";
+import Login from "./Login";
 import NoMatch from "./NoMatch";
 
 function App() {
@@ -75,6 +77,7 @@ function App() {
   // 1: the loading UI
   // 2: the result UI
   const [searchViewOption, setSearchViewOption] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [searchResult, setSearchResult] = useState([]);
 
@@ -113,7 +116,22 @@ function App() {
         <NavigationBar />
         <Switch>
           <Route exact path="/" render={() => <Home nodes={nodes} />} />
-          <Route
+          {/* <Route
+            path="/search"
+            render={
+              () => (
+                    <Search
+                      nodes={nodes}
+                      searchResult={searchResult}
+                      searchViewOption={searchViewOption}
+                      setPatientsTrajectory={setPatientsTrajectory}
+                      onSearch={handleSearch}
+                    />
+                  )
+            }
+          /> */}
+          <PrivateRoute
+            isLoggedIn={isLoggedIn}
             path="/search"
             render={() => (
               <Search
@@ -125,7 +143,15 @@ function App() {
               />
             )}
           />
-          <Route path="/login" render={() => <div>login page</div>}></Route>
+          <Route
+            path="/login"
+            render={() => (
+              <Login
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+              ></Login>
+            )}
+          ></Route>
           <Route component={NoMatch} />
         </Switch>
       </Router>
