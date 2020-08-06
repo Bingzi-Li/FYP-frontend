@@ -2,7 +2,7 @@ import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 import SearchTermsForm from "./components/SearchTermsForm";
 import PatientsTrajectory from "./components/PatientsTrajectory";
-import ResultView from "./components/ResultView.js";
+import ResultView from "./components/ResultView";
 
 const Search = (props) => {
   switch (props.searchViewOption) {

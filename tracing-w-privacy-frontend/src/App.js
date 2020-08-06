@@ -5,6 +5,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Home from "./Home";
 import Search from "./Search";
 import Login from "./Login";
+import Logout from "./Logout";
 import NoMatch from "./NoMatch";
 
 function App() {
@@ -113,23 +114,9 @@ function App() {
   return (
     <React.Fragment>
       <Router>
-        <NavigationBar />
+        <NavigationBar isLoggedIn={isLoggedIn} />
         <Switch>
           <Route exact path="/" render={() => <Home nodes={nodes} />} />
-          {/* <Route
-            path="/search"
-            render={
-              () => (
-                    <Search
-                      nodes={nodes}
-                      searchResult={searchResult}
-                      searchViewOption={searchViewOption}
-                      setPatientsTrajectory={setPatientsTrajectory}
-                      onSearch={handleSearch}
-                    />
-                  )
-            }
-          /> */}
           <PrivateRoute
             isLoggedIn={isLoggedIn}
             path="/search"
@@ -143,6 +130,7 @@ function App() {
               />
             )}
           />
+
           <Route
             path="/login"
             render={() => (
@@ -150,6 +138,15 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
               ></Login>
+            )}
+          ></Route>
+          <Route
+            path="/logout"
+            render={() => (
+              <Logout
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+              ></Logout>
             )}
           ></Route>
           <Route component={NoMatch} />
