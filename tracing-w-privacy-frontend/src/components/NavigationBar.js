@@ -1,24 +1,29 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { Link } from "react-router-dom";
 
 const NavigationBar = (props) => {
   return (
     <Navbar bg="light" variant="light">
-      <Navbar.Brand href="/">Contact Tracing Search Engine</Navbar.Brand>
+      <Navbar.Brand to="/">Contact Tracing Search Engine</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="/">Home</Nav.Link>
-        <Nav.Link href="/search">Search</Nav.Link>
+        <Nav.Link as={Link} to="/">
+          Home
+        </Nav.Link>
+        <Nav.Link as={Link} to="/search">
+          Search
+        </Nav.Link>
       </Nav>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text>
           {props.isLoggedIn ? (
             <span>
-              Signed in as: <a href="/logout">Gov Official</a>
+              Signed in as: <Link to="/logout">Gov Official</Link>
             </span>
           ) : (
-            <a href="/login">Sign In</a>
+            <Link to="/login">Sign In</Link>
           )}
         </Navbar.Text>
       </Navbar.Collapse>
