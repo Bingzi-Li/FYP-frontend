@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Redirect from "react-router-dom/Redirect";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -11,6 +11,19 @@ const Login = (props) => {
   const handleSignIn = () => {
     console.log(username, password);
     // TODO: validate the credentials
+    //useEffect(() => {
+      // POST request using fetch inside useEffect React hook
+      const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({username: password})
+      };
+      fetch('/users/validate', requestOptions)
+          .then(response => response.json())
+          .then(data => {console.log(data)});
+  
+  // empty dependency array means this effect will only run once (like componentDidMount in classes)
+ // }, []);
     props.setIsLoggedIn(true);
   };
 
