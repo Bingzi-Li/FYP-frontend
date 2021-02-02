@@ -39,7 +39,7 @@ const SearchTermsForm = (props) => {
             placeholder="Enter visiting date"
             onChange={(e) => {
               parameters["startDate"] = Date.parse(e.target.value);
-              console.log(parameters);
+              //console.log(parameters);
             }}
           />
         </Form.Group>

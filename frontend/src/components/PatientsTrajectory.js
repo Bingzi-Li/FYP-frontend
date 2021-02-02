@@ -1,106 +1,58 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+ 
 
 const PatientsTrajectory = (props) => {
   // trajectory Data
-  let trajData = Array(14).fill({ date: "0000-00-00", node: {} });
-  // trajectory UI
-  let trajView = [];
+  const [selectedFile, setSelectedFile] = useState(null);
   const [toggleView, setToggleView] = useState(false);
 
-  const handleDateChange = (e) => {
-    const i = parseInt(e.target.id.slice(14));
-    const newData = {
-      date: e.target.value,
-      node: trajData[i]["node"],
-    };
-    trajData[i] = newData;
+  // On file select (from the pop up)
+  const onFileChange  = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
 
-  const findNodeByName = (name) => {
-    var start, end;
-    for (var i = 0; i < name.length; i++) {
-      const ch = name.charAt(i);
-      if (ch === "[") start = i;
-      if (ch === "]") end = i;
-    }
-    const index = parseInt(name.slice(start + 1, end));
-    return props.nodes[index];
+  // On file upload (click the upload button)
+  const onFileUpload = () => {
+    setToggleView(true);
+    props.PatientsTrajectory = selectedFile;
   };
 
-  const handleNodeChange = (e) => {
-    const i = parseInt(e.target.id.slice(14));
-    const nodeSelected =
-      e.target.value === "Choose..." ? {} : findNodeByName(e.target.value);
-    const newData = {
-      date: trajData[i]["date"],
-      node: nodeSelected,
-    };
-    trajData[i] = newData;
-  };
+  let fileView = selectedFile ? (
+    <div>
+          <br/>
+           
+<p>File Name: {selectedFile.name}</p>
 
-  const validateData = () => {
-    const validDate = false;
-    const validNode = false;
-    // validate date and node
-    // TO-DO
-    !validDate && alert("invalid date!");
-    !validNode && alert("invalid node!");
-    return validDate && validNode;
-  };
+           
+<p>File Type: {selectedFile.type}</p>
 
-  const handleSubmit = () => {
-    if (validateData()) {
-      props.setPatientsTrajectory(trajData);
-      setToggleView(true);
-    }
-  };
+           
+<p>
+            Last Modified:{" "}
+            {selectedFile.lastModifiedDate.toDateString()}
+          </p>
 
-  for (var i = 0; i < 14; i++) {
-    trajView.push(
-      <Form.Row key={i}>
-        <Form.Group as={Col} controlId={"trajectoryDate" + i.toString()}>
-          <Form.Label>{i === 0 ? "Date" : ""}</Form.Label>
-          <Form.Control
-            type="date"
-            placeholder="Enter visiting date"
-            onChange={(e) => handleDateChange(e)}
-          />
-        </Form.Group>
+      </div>
+  
+) :(<div></div>);
 
-        <Form.Group as={Col} controlId={"trajectoryNode" + i.toString()}>
-          <Form.Label>{i === 0 ? "Place visited" : ""}</Form.Label>
-          <Form.Control
-            as="select"
-            defaultValue="Choose..."
-            onChange={(e) => handleNodeChange(e)}
-          >
-            <option key="default">Choose...</option>
-            {props.nodes.map((node, index) => (
-              <option key={index}>
-                {node.station_name + " [" + index.toString() + "]"}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-      </Form.Row>
-    );
-  }
+let uploadView = toggleView ? (<p><br/>The Patient's Trajectory Submitted!</p>):(<div><br/><Button variant="primary" onClick={onFileUpload}>
+Upload
+</Button></div>);
 
-  return toggleView ? (
-    <p>The Patient's Trajectory Submitted!</p>
-  ) : (
+  return (
     <Form>
-      <h5>Patient's Trajectory</h5>
+      <h5>Patient's Trajectory Embedding</h5>
       <br />
-      {trajView}
-      <Button variant="primary" onClick={handleSubmit}>
-        Submit
-      </Button>
+      <div>
+      <input type="file" name="file" onChange={onFileChange} />
+      {fileView}
+      {uploadView}
+      </div>
     </Form>
-  );
+  )
 };
 
 export default PatientsTrajectory;

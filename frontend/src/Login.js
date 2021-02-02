@@ -9,10 +9,7 @@ const Login = (props) => {
   let username, password;
 
   const handleSignIn = () => {
-    console.log(username, password);
     // TODO: validate the credentials
-    //useEffect(() => {
-      // POST request using fetch inside useEffect React hook
       const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -21,9 +18,6 @@ const Login = (props) => {
       fetch('/users/validate', requestOptions)
           .then(response => response.json())
           .then(data => {console.log(data)});
-  
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
- // }, []);
     props.setIsLoggedIn(true);
   };
 

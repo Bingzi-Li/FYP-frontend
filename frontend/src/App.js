@@ -85,7 +85,13 @@ function App() {
   /* ---------------- functions  ---------------- */
 
   function extractNodes() {
-    // get nodes from backend
+    // TODO: get nodes from backend
+    fetch('/nodes/all')
+        .then(response => response.json())
+        .then(data => {
+          // TODO: process this data
+          setNodes(data);
+        });
   }
 
   // for testing only
@@ -93,17 +99,32 @@ function App() {
 
   const handleSearch = async (parameters) => {
     setSearchTerms(parameters);
-    // call backend to search
+
     // before result returned by backend, set search view option to 1
     setSearchViewOption(1);
     await delay(5000); // for testing purpose
-    // dummy data
+
+    // TODO: send params to backend, call backend to search
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({parameters})
+  };
+  fetch('/search', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        // TODO: put the data into right format
+        // setSearchResult(data);
+      });
+    
+    // dummy data when todo is not ready
     const result = [
       { id: 0, name: "Jack Sparrow", contact: 12345678 },
       { id: 1, name: "Harry Potter", contact: 12345668 },
       { id: 2, name: "Arya Stark", contact: 12341248 },
     ];
     setSearchResult(result);
+
     // after result returned by backend, set search view option to 2
     setSearchViewOption(2);
   };
