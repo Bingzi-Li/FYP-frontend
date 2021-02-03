@@ -8,7 +8,7 @@ const ResultView = (props) => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
+            <th>NRIC</th>
             <th>Name</th>
             <th>Contact</th>
           </tr>

@@ -11,68 +11,19 @@ import NoMatch from "./NoMatch";
 function App() {
   /* ---------------- delcare states variables  ---------------- */
 
-  // dummy data, should get it from backend
-  const mrtData = [
-    {
-      station_name: "Jurong East",
-      type: "MRT",
-      lat: 1.333207,
-      lng: 103.742308,
-    },
-    {
-      station_name: "Bukit Batok",
-      type: "MRT",
-      lat: 1.349069,
-      lng: 103.749596,
-    },
-    {
-      station_name: "Bukit Gombak",
-      type: "MRT",
-      lat: 1.359043,
-      lng: 103.751863,
-    },
-    {
-      station_name: "Choa Chu Kang",
-      type: "MRT",
-      lat: 1.385417,
-      lng: 103.744316,
-    },
-    {
-      station_name: "Yew Tee",
-      type: "MRT",
-      lat: 1.397383,
-      lng: 103.747523,
-    },
-    {
-      station_name: "Kranji",
-      type: "MRT",
-      lat: 1.425302,
-      lng: 103.762049,
-    },
-    {
-      station_name: "Marsiling",
-      type: "MRT",
-      lat: 1.432579,
-      lng: 103.77415,
-    },
-    {
-      station_name: "Woodlands",
-      type: "MRT",
-      lat: 1.436984,
-      lng: 103.786406,
-    },
-  ];
+  // if we need to display nodes on the screen
+  const mrtData = [];
 
   var date = new Date();
   const initialSearchTerms = {
     startDate: new Date(date.getTime() - 14 * 86400000),
     endDate: date,
-    entryToDisplay: 50,
+    entryToDisplay: 5,
   };
 
   const [nodes, setNodes] = useState(mrtData);
   const [searchTerms, setSearchTerms] = useState(initialSearchTerms);
-  const [patientTrajectory, setPatientsTrajectory] = useState([]);
+  const [patientTrajectory, setPatientsTrajectory] = useState();
 
   // 0: the search terms UI
   // 1: the loading UI
@@ -108,7 +59,7 @@ function App() {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({parameters})
+      body: JSON.stringify({'searchTerms': searchTerms, 'patientTrajectory': patientTrajectory})
   };
   fetch('/search', requestOptions)
       .then(response => response.json())

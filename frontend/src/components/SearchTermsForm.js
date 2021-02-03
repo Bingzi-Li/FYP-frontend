@@ -21,7 +21,7 @@ const SearchTermsForm = (props) => {
     return valid;
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = () => {
     if (validateSearchTerms()) {
       props.onSearch(parameters);
     }
@@ -29,7 +29,7 @@ const SearchTermsForm = (props) => {
 
   return (
     <div>
-      <p>Enter time range:</p>
+      <p>Enter search parameters:</p>
 
       <Form.Row key="timeRange">
         <Form.Group as={Col} controlId="startDate">

@@ -16,7 +16,7 @@ const PatientsTrajectory = (props) => {
   // On file upload (click the upload button)
   const onFileUpload = () => {
     setToggleView(true);
-    props.PatientsTrajectory = selectedFile;
+    props.setPatientsTrajectory(selectedFile);
   };
 
   let fileView = selectedFile ? (
