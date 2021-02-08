@@ -14,16 +14,14 @@ function App() {
   // if we need to display nodes on the screen
   const mrtData = [];
 
-  var date = new Date();
-  const initialSearchTerms = {
-    startDate: new Date(date.getTime() - 14 * 86400000),
-    endDate: date,
-    entryToDisplay: 5,
-  };
+  // var date = new Date();
+  // const initialSearchTerms = {
+  //   startDate: new Date(date.getTime() - 14 * 86400000),
+  //   endDate: date,
+  //   entryToDisplay: 5,
+  // };
 
   const [nodes, setNodes] = useState(mrtData);
-  const [searchTerms, setSearchTerms] = useState(initialSearchTerms);
-  const [patientTrajectory, setPatientsTrajectory] = useState();
 
   // 0: the search terms UI
   // 1: the loading UI
@@ -48,24 +46,24 @@ function App() {
   // for testing only
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
+  
   const handleSearch = async (parameters) => {
-    setSearchTerms(parameters);
 
     // before result returned by backend, set search view option to 1
     setSearchViewOption(1);
-    await delay(5000); // for testing purpose
+    await delay(1000); // for testing purpose
+  
 
     // TODO: send params to backend, call backend to search
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({'searchTerms': searchTerms, 'patientTrajectory': patientTrajectory})
+      body: JSON.stringify({'searchTerms': parameters})
   };
   fetch('/search', requestOptions)
       .then(response => response.json())
       .then(data => {
-        // TODO: put the data into right format
-        // setSearchResult(data);
+         console.log(data);
       });
     
     // dummy data when todo is not ready
@@ -97,7 +95,6 @@ function App() {
                 nodes={nodes}
                 searchResult={searchResult}
                 searchViewOption={searchViewOption}
-                setPatientsTrajectory={setPatientsTrajectory}
                 onSearch={handleSearch}
               />
             )}

@@ -13,7 +13,6 @@ const Search = (props) => {
             <div className="Body-inner">
               <PatientsTrajectory
                 nodes={props.nodes}
-                setPatientsTrajectory={props.setPatientsTrajectory}
               ></PatientsTrajectory>
             </div>
           </div>
