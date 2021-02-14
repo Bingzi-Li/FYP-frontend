@@ -44,17 +44,17 @@ function App() {
   }
 
   // for testing only
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  // const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   
   const handleSearch = async (parameters) => {
 
     // before result returned by backend, set search view option to 1
     setSearchViewOption(1);
-    await delay(1000); // for testing purpose
+   // await delay(1000); // for testing purpose
   
 
-    // TODO: send params to backend, call backend to search
+    // end params to backend, call backend to search
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -64,18 +64,13 @@ function App() {
       .then(response => response.json())
       .then(data => {
          console.log(data);
-      });
-    
-    // dummy data when todo is not ready
-    const result = [
-      { id: 0, name: "Jack Sparrow", contact: 12345678 },
-      { id: 1, name: "Harry Potter", contact: 12345668 },
-      { id: 2, name: "Arya Stark", contact: 12341248 },
-    ];
-    setSearchResult(result);
+         setSearchResult(data['res']);
+        
+      // after result returned by backend, set search view option to 2
+      setSearchViewOption(2);
 
-    // after result returned by backend, set search view option to 2
-    setSearchViewOption(2);
+      });
+  
   };
 
   /* ---------------- body  ---------------- */
