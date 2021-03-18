@@ -9,7 +9,7 @@ const ResultView = (props) => {
         <thead>
           <tr key='thead'> 
             <th key='NRIC'>NRIC</th>
-            <th key='dist'>Disimilarity</th>
+            <th key='cos_sim'>Similarity</th>
           </tr>
         </thead>
         <tbody>
